@@ -15,26 +15,10 @@ const io = new Server(server, {
   },
 });
 
-// Socket connections
+const setupSocket = require('./config/socket');
 const logger = require('./utils/logger');
 
-io.on('connection', (socket) => {
-  logger.info(`🟢 A user connected: ${socket.id}`);
-
-  socket.on('joinNoteRoom', (noteId) => {
-    socket.join(noteId);
-    logger.info(`User joined note room: ${noteId}`);
-  });
-
-  socket.on('leaveNoteRoom', (noteId) => {
-    socket.leave(noteId);
-    logger.info(`User left note room: ${noteId}`);
-  });
-
-  socket.on('disconnect', () => {
-    logger.info(`🔴 A user disconnected: ${socket.id}`);
-  });
-});
+setupSocket(io);
 
 global.io = io; // So we can use it in controllers
 

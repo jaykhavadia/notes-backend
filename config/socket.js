@@ -2,12 +2,12 @@ const setupSocket = (io) => {
   io.on('connection', (socket) => {
     console.log('User connected:', socket.id);
 
-    socket.on('joinNote', (noteId) => {
-      socket.join(noteId);
+    socket.on('joinRoom', (roomId) => {
+      socket.join(roomId);
     });
 
-    socket.on('leaveNote', (noteId) => {
-      socket.leave(noteId);
+    socket.on('leaveRoom', (roomId) => {
+      socket.leave(roomId);
     });
 
     socket.on('noteUpdated', ({ noteId, updatedNote }) => {
