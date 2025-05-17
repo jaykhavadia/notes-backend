@@ -29,9 +29,11 @@ app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
+const logger = require('./utils/logger');
+
 // Error handler
 app.use((err, req, res, next) => {
-  console.error('Server Error:', err.message);
+  logger.error('Server Error: %s', err.stack);
   res.status(500).json({ message: 'Internal Server Error' });
 });
 

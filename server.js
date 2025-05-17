@@ -16,21 +16,23 @@ const io = new Server(server, {
 });
 
 // Socket connections
+const logger = require('./utils/logger');
+
 io.on('connection', (socket) => {
-  console.log('🟢 A user connected:', socket.id);
+  logger.info(`🟢 A user connected: ${socket.id}`);
 
   socket.on('joinNoteRoom', (noteId) => {
     socket.join(noteId);
-    console.log(`User joined note room: ${noteId}`);
+    logger.info(`User joined note room: ${noteId}`);
   });
 
   socket.on('leaveNoteRoom', (noteId) => {
     socket.leave(noteId);
-    console.log(`User left note room: ${noteId}`);
+    logger.info(`User left note room: ${noteId}`);
   });
 
   socket.on('disconnect', () => {
-    console.log('🔴 A user disconnected:', socket.id);
+    logger.info(`🔴 A user disconnected: ${socket.id}`);
   });
 });
 
